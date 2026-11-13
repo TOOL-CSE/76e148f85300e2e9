@@ -1,0 +1,849 @@
+{
+  "name": "Datapath đơn chu kỳ (đầy đủ)",
+  "circuit": {
+    "nodes": [
+      {
+        "id": "pc",
+        "type": "pc",
+        "x": 40,
+        "y": 480
+      },
+      {
+        "id": "imem",
+        "type": "imem",
+        "x": 130,
+        "y": 482
+      },
+      {
+        "id": "c4",
+        "type": "const",
+        "x": 170,
+        "y": 127,
+        "params": {
+          "value": 4
+        }
+      },
+      {
+        "id": "add4",
+        "type": "add",
+        "x": 230,
+        "y": 60
+      },
+      {
+        "id": "split",
+        "type": "split",
+        "x": 290,
+        "y": 357,
+        "params": {
+          "jump": true
+        }
+      },
+      {
+        "id": "ctrl",
+        "type": "control",
+        "x": 420,
+        "y": 181,
+        "params": {
+          "jump": true
+        }
+      },
+      {
+        "id": "muxDst",
+        "type": "mux",
+        "x": 372,
+        "y": 560
+      },
+      {
+        "id": "rf",
+        "type": "regfile",
+        "x": 440,
+        "y": 480
+      },
+      {
+        "id": "se",
+        "type": "signext",
+        "x": 440,
+        "y": 653
+      },
+      {
+        "id": "sl2",
+        "type": "sl2",
+        "x": 670,
+        "y": 76
+      },
+      {
+        "id": "addBr",
+        "type": "add",
+        "x": 770,
+        "y": 40
+      },
+      {
+        "id": "and",
+        "type": "and",
+        "x": 900,
+        "y": 160
+      },
+      {
+        "id": "muxPc",
+        "type": "mux",
+        "x": 980,
+        "y": 40,
+        "params": {
+          "selBottom": true
+        }
+      },
+      {
+        "id": "sl2j",
+        "type": "sl2",
+        "x": 400,
+        "y": -102
+      },
+      {
+        "id": "jaddr",
+        "type": "jaddr",
+        "x": 620,
+        "y": -84
+      },
+      {
+        "id": "muxJ",
+        "type": "mux",
+        "x": 1060,
+        "y": 24,
+        "params": {
+          "selBottom": true,
+          "swap": true
+        }
+      },
+      {
+        "id": "muxAlu",
+        "type": "mux",
+        "x": 680,
+        "y": 567
+      },
+      {
+        "id": "alu",
+        "type": "alu",
+        "x": 760,
+        "y": 470
+      },
+      {
+        "id": "aluCtrl",
+        "type": "aluctrl",
+        "x": 755,
+        "y": 700
+      },
+      {
+        "id": "dm",
+        "type": "dmem",
+        "x": 960,
+        "y": 532
+      },
+      {
+        "id": "muxWb",
+        "type": "mux",
+        "x": 1110,
+        "y": 534,
+        "params": {
+          "swap": true
+        }
+      }
+    ],
+    "wires": [
+      {
+        "id": "w_pc_out_imem_addr",
+        "from": {
+          "node": "pc",
+          "port": "out"
+        },
+        "to": {
+          "node": "imem",
+          "port": "addr"
+        },
+        "points": []
+      },
+      {
+        "id": "w_pc_out_add4_a",
+        "from": {
+          "node": "pc",
+          "port": "out"
+        },
+        "to": {
+          "node": "add4",
+          "port": "a"
+        },
+        "points": [
+          {
+            "x": 100,
+            "y": 78
+          }
+        ]
+      },
+      {
+        "id": "w_c4_out_add4_b",
+        "from": {
+          "node": "c4",
+          "port": "out"
+        },
+        "to": {
+          "node": "add4",
+          "port": "b"
+        },
+        "points": []
+      },
+      {
+        "id": "w_imem_instr_split_in",
+        "from": {
+          "node": "imem",
+          "port": "instr"
+        },
+        "to": {
+          "node": "split",
+          "port": "in"
+        },
+        "points": []
+      },
+      {
+        "id": "w_add4_out_addBr_a",
+        "from": {
+          "node": "add4",
+          "port": "out"
+        },
+        "to": {
+          "node": "addBr",
+          "port": "a"
+        },
+        "points": [
+          {
+            "x": 600,
+            "y": 58
+          }
+        ]
+      },
+      {
+        "id": "w_add4_out_muxPc_in0",
+        "from": {
+          "node": "add4",
+          "port": "out"
+        },
+        "to": {
+          "node": "muxPc",
+          "port": "in0"
+        },
+        "points": [
+          {
+            "x": 600,
+            "y": 20
+          },
+          {
+            "x": 960,
+            "y": 20
+          }
+        ]
+      },
+      {
+        "id": "w_add4_out_jaddr_pc4",
+        "from": {
+          "node": "add4",
+          "port": "out"
+        },
+        "to": {
+          "node": "jaddr",
+          "port": "pc4"
+        },
+        "points": [
+          {
+            "x": 600,
+            "y": -10
+          }
+        ]
+      },
+      {
+        "id": "w_muxPc_out_muxJ_in0",
+        "from": {
+          "node": "muxPc",
+          "port": "out"
+        },
+        "to": {
+          "node": "muxJ",
+          "port": "in0"
+        },
+        "points": []
+      },
+      {
+        "id": "w_muxJ_out_pc_in",
+        "from": {
+          "node": "muxJ",
+          "port": "out"
+        },
+        "to": {
+          "node": "pc",
+          "port": "in"
+        },
+        "points": [
+          {
+            "x": 1110,
+            "y": -130
+          },
+          {
+            "x": 20,
+            "y": -130
+          },
+          {
+            "x": 20,
+            "y": 516
+          }
+        ]
+      },
+      {
+        "id": "w_split_target_sl2j_in",
+        "from": {
+          "node": "split",
+          "port": "target"
+        },
+        "to": {
+          "node": "sl2j",
+          "port": "in"
+        },
+        "points": [
+          {
+            "x": 330,
+            "y": -60
+          }
+        ]
+      },
+      {
+        "id": "w_sl2j_out_jaddr_lo",
+        "from": {
+          "node": "sl2j",
+          "port": "out"
+        },
+        "to": {
+          "node": "jaddr",
+          "port": "lo"
+        },
+        "points": []
+      },
+      {
+        "id": "w_jaddr_out_muxJ_in1",
+        "from": {
+          "node": "jaddr",
+          "port": "out"
+        },
+        "to": {
+          "node": "muxJ",
+          "port": "in1"
+        },
+        "points": [
+          {
+            "x": 1040,
+            "y": 40
+          }
+        ]
+      },
+      {
+        "id": "w_split_op_ctrl_op",
+        "from": {
+          "node": "split",
+          "port": "op"
+        },
+        "to": {
+          "node": "ctrl",
+          "port": "op"
+        },
+        "points": [
+          {
+            "x": 360,
+            "y": 285
+          }
+        ]
+      },
+      {
+        "id": "w_split_rs_rf_rr1",
+        "from": {
+          "node": "split",
+          "port": "rs"
+        },
+        "to": {
+          "node": "rf",
+          "port": "rr1"
+        },
+        "points": []
+      },
+      {
+        "id": "w_split_rt_rf_rr2",
+        "from": {
+          "node": "split",
+          "port": "rt"
+        },
+        "to": {
+          "node": "rf",
+          "port": "rr2"
+        },
+        "points": []
+      },
+      {
+        "id": "w_split_rt_muxDst_in0",
+        "from": {
+          "node": "split",
+          "port": "rt"
+        },
+        "to": {
+          "node": "muxDst",
+          "port": "in0"
+        },
+        "points": [
+          {
+            "x": 340,
+            "y": 576
+          }
+        ]
+      },
+      {
+        "id": "w_split_rd_muxDst_in1",
+        "from": {
+          "node": "split",
+          "port": "rd"
+        },
+        "to": {
+          "node": "muxDst",
+          "port": "in1"
+        },
+        "points": [
+          {
+            "x": 356,
+            "y": 608
+          }
+        ]
+      },
+      {
+        "id": "w_split_imm_se_in",
+        "from": {
+          "node": "split",
+          "port": "imm"
+        },
+        "to": {
+          "node": "se",
+          "port": "in"
+        },
+        "points": []
+      },
+      {
+        "id": "w_split_funct_aluCtrl_funct",
+        "from": {
+          "node": "split",
+          "port": "funct"
+        },
+        "to": {
+          "node": "aluCtrl",
+          "port": "funct"
+        },
+        "points": [
+          {
+            "x": 345,
+            "y": 790
+          }
+        ]
+      },
+      {
+        "id": "w_muxDst_out_rf_wr",
+        "from": {
+          "node": "muxDst",
+          "port": "out"
+        },
+        "to": {
+          "node": "rf",
+          "port": "wr"
+        },
+        "points": []
+      },
+      {
+        "id": "w_rf_rd1_alu_a",
+        "from": {
+          "node": "rf",
+          "port": "rd1"
+        },
+        "to": {
+          "node": "alu",
+          "port": "a"
+        },
+        "points": []
+      },
+      {
+        "id": "w_rf_rd2_muxAlu_in0",
+        "from": {
+          "node": "rf",
+          "port": "rd2"
+        },
+        "to": {
+          "node": "muxAlu",
+          "port": "in0"
+        },
+        "points": []
+      },
+      {
+        "id": "w_se_out_muxAlu_in1",
+        "from": {
+          "node": "se",
+          "port": "out"
+        },
+        "to": {
+          "node": "muxAlu",
+          "port": "in1"
+        },
+        "points": [
+          {
+            "x": 640,
+            "y": 615
+          }
+        ]
+      },
+      {
+        "id": "w_se_out_sl2_in",
+        "from": {
+          "node": "se",
+          "port": "out"
+        },
+        "to": {
+          "node": "sl2",
+          "port": "in"
+        },
+        "points": [
+          {
+            "x": 640,
+            "y": 118
+          }
+        ]
+      },
+      {
+        "id": "w_muxAlu_out_alu_b",
+        "from": {
+          "node": "muxAlu",
+          "port": "out"
+        },
+        "to": {
+          "node": "alu",
+          "port": "b"
+        },
+        "points": []
+      },
+      {
+        "id": "w_aluCtrl_out_alu_op",
+        "from": {
+          "node": "aluCtrl",
+          "port": "out"
+        },
+        "to": {
+          "node": "alu",
+          "port": "op"
+        },
+        "points": []
+      },
+      {
+        "id": "w_sl2_out_addBr_b",
+        "from": {
+          "node": "sl2",
+          "port": "out"
+        },
+        "to": {
+          "node": "addBr",
+          "port": "b"
+        },
+        "points": []
+      },
+      {
+        "id": "w_addBr_out_muxPc_in1",
+        "from": {
+          "node": "addBr",
+          "port": "out"
+        },
+        "to": {
+          "node": "muxPc",
+          "port": "in1"
+        },
+        "points": []
+      },
+      {
+        "id": "w_alu_zero_and_b",
+        "from": {
+          "node": "alu",
+          "port": "zero"
+        },
+        "to": {
+          "node": "and",
+          "port": "b"
+        },
+        "points": [
+          {
+            "x": 860,
+            "y": 194
+          }
+        ]
+      },
+      {
+        "id": "w_and_out_muxPc_sel",
+        "from": {
+          "node": "and",
+          "port": "out"
+        },
+        "to": {
+          "node": "muxPc",
+          "port": "sel"
+        },
+        "points": []
+      },
+      {
+        "id": "w_alu_result_dm_addr",
+        "from": {
+          "node": "alu",
+          "port": "result"
+        },
+        "to": {
+          "node": "dm",
+          "port": "addr"
+        },
+        "points": []
+      },
+      {
+        "id": "w_rf_rd2_dm_wd",
+        "from": {
+          "node": "rf",
+          "port": "rd2"
+        },
+        "to": {
+          "node": "dm",
+          "port": "wd"
+        },
+        "points": [
+          {
+            "x": 650,
+            "y": 655
+          },
+          {
+            "x": 920,
+            "y": 655
+          },
+          {
+            "x": 920,
+            "y": 599
+          }
+        ]
+      },
+      {
+        "id": "w_dm_rd_muxWb_in1",
+        "from": {
+          "node": "dm",
+          "port": "rd"
+        },
+        "to": {
+          "node": "muxWb",
+          "port": "in1"
+        },
+        "points": []
+      },
+      {
+        "id": "w_alu_result_muxWb_in0",
+        "from": {
+          "node": "alu",
+          "port": "result"
+        },
+        "to": {
+          "node": "muxWb",
+          "port": "in0"
+        },
+        "points": [
+          {
+            "x": 880,
+            "y": 690
+          },
+          {
+            "x": 1090,
+            "y": 690
+          },
+          {
+            "x": 1090,
+            "y": 582
+          }
+        ]
+      },
+      {
+        "id": "w_muxWb_out_rf_wd",
+        "from": {
+          "node": "muxWb",
+          "port": "out"
+        },
+        "to": {
+          "node": "rf",
+          "port": "wd"
+        },
+        "points": [
+          {
+            "x": 1160,
+            "y": 810
+          },
+          {
+            "x": 428,
+            "y": 810
+          },
+          {
+            "x": 428,
+            "y": 605
+          }
+        ]
+      },
+      {
+        "id": "w_ctrl_Jump_muxJ_sel",
+        "from": {
+          "node": "ctrl",
+          "port": "Jump"
+        },
+        "to": {
+          "node": "muxJ",
+          "port": "sel"
+        },
+        "points": [
+          {
+            "x": 840,
+            "y": 140
+          },
+          {
+            "x": 1073,
+            "y": 140
+          }
+        ]
+      },
+      {
+        "id": "w_ctrl_Branch_and_a",
+        "from": {
+          "node": "ctrl",
+          "port": "Branch"
+        },
+        "to": {
+          "node": "and",
+          "port": "a"
+        },
+        "points": [
+          {
+            "x": 820,
+            "y": 172
+          }
+        ]
+      },
+      {
+        "id": "w_ctrl_MemtoReg_muxWb_sel",
+        "from": {
+          "node": "ctrl",
+          "port": "MemtoReg"
+        },
+        "to": {
+          "node": "muxWb",
+          "port": "sel"
+        },
+        "points": []
+      },
+      {
+        "id": "w_ctrl_MemWrite_dm_memWrite",
+        "from": {
+          "node": "ctrl",
+          "port": "MemWrite"
+        },
+        "to": {
+          "node": "dm",
+          "port": "memWrite"
+        },
+        "points": []
+      },
+      {
+        "id": "w_ctrl_MemRead_dm_memRead",
+        "from": {
+          "node": "ctrl",
+          "port": "MemRead"
+        },
+        "to": {
+          "node": "dm",
+          "port": "memRead"
+        },
+        "points": [
+          {
+            "x": 940,
+            "y": 670
+          },
+          {
+            "x": 1012,
+            "y": 670
+          }
+        ]
+      },
+      {
+        "id": "w_ctrl_ALUSrc_muxAlu_sel",
+        "from": {
+          "node": "ctrl",
+          "port": "ALUSrc"
+        },
+        "to": {
+          "node": "muxAlu",
+          "port": "sel"
+        },
+        "points": []
+      },
+      {
+        "id": "w_ctrl_ALUOp_aluCtrl_aluOp",
+        "from": {
+          "node": "ctrl",
+          "port": "ALUOp"
+        },
+        "to": {
+          "node": "aluCtrl",
+          "port": "aluOp"
+        },
+        "points": [
+          {
+            "x": 620,
+            "y": 730
+          }
+        ]
+      },
+      {
+        "id": "w_ctrl_RegWrite_rf_regWrite",
+        "from": {
+          "node": "ctrl",
+          "port": "RegWrite"
+        },
+        "to": {
+          "node": "rf",
+          "port": "regWrite"
+        },
+        "points": [
+          {
+            "x": 540,
+            "y": 450
+          },
+          {
+            "x": 510,
+            "y": 450
+          }
+        ]
+      },
+      {
+        "id": "w_ctrl_RegDst_muxDst_sel",
+        "from": {
+          "node": "ctrl",
+          "port": "RegDst"
+        },
+        "to": {
+          "node": "muxDst",
+          "port": "sel"
+        },
+        "points": [
+          {
+            "x": 556,
+            "y": 460
+          },
+          {
+            "x": 385,
+            "y": 460
+          }
+        ]
+      }
+    ]
+  }
+}
