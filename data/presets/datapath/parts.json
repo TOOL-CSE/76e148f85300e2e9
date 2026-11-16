@@ -1,0 +1,128 @@
+{
+  "name": "Bài tập: tự nối dây",
+  "circuit": {
+    "nodes": [
+      {
+        "id": "pc",
+        "type": "pc",
+        "x": 28,
+        "y": 323
+      },
+      {
+        "id": "imem",
+        "type": "imem",
+        "x": 113,
+        "y": 325
+      },
+      {
+        "id": "c4",
+        "type": "const",
+        "x": 190,
+        "y": 137,
+        "params": {
+          "value": 4
+        }
+      },
+      {
+        "id": "add4",
+        "type": "add",
+        "x": 268,
+        "y": 70
+      },
+      {
+        "id": "split",
+        "type": "split",
+        "x": 258,
+        "y": 200
+      },
+      {
+        "id": "ctrl",
+        "type": "control",
+        "x": 312,
+        "y": 123
+      },
+      {
+        "id": "muxDst",
+        "type": "mux",
+        "x": 322,
+        "y": 380,
+        "params": {
+          "selBottom": true
+        }
+      },
+      {
+        "id": "rf",
+        "type": "regfile",
+        "x": 370,
+        "y": 323
+      },
+      {
+        "id": "se",
+        "type": "signext",
+        "x": 369,
+        "y": 496
+      },
+      {
+        "id": "sl2",
+        "type": "sl2",
+        "x": 601,
+        "y": 72
+      },
+      {
+        "id": "addBr",
+        "type": "add",
+        "x": 671,
+        "y": 36
+      },
+      {
+        "id": "and",
+        "type": "and",
+        "x": 715,
+        "y": 141
+      },
+      {
+        "id": "muxPc",
+        "type": "mux",
+        "x": 768,
+        "y": 36,
+        "params": {
+          "selBottom": true
+        }
+      },
+      {
+        "id": "muxAlu",
+        "type": "mux",
+        "x": 583,
+        "y": 410
+      },
+      {
+        "id": "alu",
+        "type": "alu",
+        "x": 671,
+        "y": 313
+      },
+      {
+        "id": "aluCtrl",
+        "type": "aluctrl",
+        "x": 666,
+        "y": 506
+      },
+      {
+        "id": "dm",
+        "type": "dmem",
+        "x": 826,
+        "y": 375
+      },
+      {
+        "id": "muxWb",
+        "type": "mux",
+        "x": 968,
+        "y": 377,
+        "params": {
+          "swap": true
+        }
+      }
+    ],
+    "wires": []
+  }
+}

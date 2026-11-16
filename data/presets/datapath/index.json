@@ -1,0 +1,8 @@
+{
+  "default": "full",
+  "presets": [
+    "full",
+    "parts",
+    "blank"
+  ]
+}

@@ -1,0 +1,1904 @@
+{
+ "name": "Datapath pipeline 5 tầng (forwarding + hazard detection)",
+ "circuit": {
+  "nodes": [
+   {
+    "id": "lblIF",
+    "type": "stage",
+    "x": 0,
+    "y": -330,
+    "params": {
+     "stage": "IF",
+     "label": "IF",
+     "w": 300
+    }
+   },
+   {
+    "id": "lblID",
+    "type": "stage",
+    "x": 340,
+    "y": -330,
+    "params": {
+     "stage": "ID",
+     "label": "ID",
+     "w": 420
+    }
+   },
+   {
+    "id": "lblEX",
+    "type": "stage",
+    "x": 800,
+    "y": -330,
+    "params": {
+     "stage": "EX",
+     "label": "EX",
+     "w": 580
+    }
+   },
+   {
+    "id": "lblMEM",
+    "type": "stage",
+    "x": 1420,
+    "y": -330,
+    "params": {
+     "stage": "MEM",
+     "label": "MEM",
+     "w": 300
+    }
+   },
+   {
+    "id": "lblWB",
+    "type": "stage",
+    "x": 1760,
+    "y": -330,
+    "params": {
+     "stage": "WB",
+     "label": "WB",
+     "w": 160
+    }
+   },
+   {
+    "id": "muxPc",
+    "type": "mux",
+    "x": 30,
+    "y": 384
+   },
+   {
+    "id": "pc",
+    "type": "pc",
+    "x": 90,
+    "y": 380,
+    "params": {
+     "enable": true
+    }
+   },
+   {
+    "id": "imem",
+    "type": "imem",
+    "x": 180,
+    "y": 382
+   },
+   {
+    "id": "c4",
+    "type": "const",
+    "x": 170,
+    "y": 249,
+    "params": {
+     "value": 4
+    }
+   },
+   {
+    "id": "add4",
+    "type": "add",
+    "x": 220,
+    "y": 182
+   },
+   {
+    "id": "ifid",
+    "type": "preg",
+    "x": 320,
+    "y": 0,
+    "params": {
+     "label": "IF/ID",
+     "h": 820,
+     "write": true,
+     "flush": true,
+     "fields": [
+      {
+       "id": "pc4",
+       "y": 230,
+       "label": "PC+4"
+      },
+      {
+       "id": "instr",
+       "y": 432
+      }
+     ]
+    }
+   },
+   {
+    "id": "hazard",
+    "type": "hazard",
+    "x": 435,
+    "y": -180
+   },
+   {
+    "id": "split",
+    "type": "split",
+    "x": 380,
+    "y": 257
+   },
+   {
+    "id": "ctrl",
+    "type": "control",
+    "x": 560,
+    "y": 10
+   },
+   {
+    "id": "rf",
+    "type": "regfile",
+    "x": 540,
+    "y": 380,
+    "params": {
+     "bypass": true
+    }
+   },
+   {
+    "id": "se",
+    "type": "signext",
+    "x": 560,
+    "y": 553
+   },
+   {
+    "id": "idex",
+    "type": "preg",
+    "x": 780,
+    "y": 0,
+    "params": {
+     "label": "ID/EX",
+     "h": 820,
+     "flush": true,
+     "fields": [
+      {
+       "id": "Branch",
+       "y": 40,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "MemtoReg",
+       "y": 59,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "MemWrite",
+       "y": 78,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "MemRead",
+       "y": 97,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "ALUSrc",
+       "y": 116,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "ALUOp",
+       "y": 135,
+       "bits": 2,
+       "ctrl": true
+      },
+      {
+       "id": "RegWrite",
+       "y": 154,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "RegDst",
+       "y": 173,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "pc4",
+       "y": 230,
+       "label": "PC+4"
+      },
+      {
+       "id": "rd1",
+       "y": 397,
+       "label": "RD1"
+      },
+      {
+       "id": "rd2",
+       "y": 530,
+       "label": "RD2"
+      },
+      {
+       "id": "imm",
+       "y": 640,
+       "label": "imm"
+      },
+      {
+       "id": "funct",
+       "y": 680,
+       "bits": 6
+      },
+      {
+       "id": "rs",
+       "y": 730,
+       "bits": 5
+      },
+      {
+       "id": "rt",
+       "y": 760,
+       "bits": 5
+      },
+      {
+       "id": "rd",
+       "y": 792,
+       "bits": 5
+      }
+     ]
+    }
+   },
+   {
+    "id": "sl2",
+    "type": "sl2",
+    "x": 1200,
+    "y": 248
+   },
+   {
+    "id": "addBr",
+    "type": "add",
+    "x": 1280,
+    "y": 212
+   },
+   {
+    "id": "fwdB",
+    "type": "mux3",
+    "x": 950,
+    "y": 514
+   },
+   {
+    "id": "fwdA",
+    "type": "mux3",
+    "x": 1060,
+    "y": 381
+   },
+   {
+    "id": "muxAlu",
+    "type": "mux",
+    "x": 1110,
+    "y": 546
+   },
+   {
+    "id": "alu",
+    "type": "alu",
+    "x": 1180,
+    "y": 449
+   },
+   {
+    "id": "aluCtrl",
+    "type": "aluctrl",
+    "x": 1175,
+    "y": 660
+   },
+   {
+    "id": "muxDst",
+    "type": "mux",
+    "x": 1340,
+    "y": 744
+   },
+   {
+    "id": "fwd",
+    "type": "fwd",
+    "x": 893,
+    "y": 900
+   },
+   {
+    "id": "exmem",
+    "type": "preg",
+    "x": 1400,
+    "y": 0,
+    "params": {
+     "label": "EX/MEM",
+     "h": 820,
+     "flush": true,
+     "fields": [
+      {
+       "id": "Branch",
+       "y": 40,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "MemtoReg",
+       "y": 59,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "MemWrite",
+       "y": 78,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "MemRead",
+       "y": 97,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "RegWrite",
+       "y": 154,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "target",
+       "y": 260,
+       "label": "đích"
+      },
+      {
+       "id": "zero",
+       "y": 501,
+       "bits": 1
+      },
+      {
+       "id": "alu",
+       "y": 544,
+       "label": "ALU"
+      },
+      {
+       "id": "wdata",
+       "y": 650,
+       "label": "WD"
+      },
+      {
+       "id": "rd",
+       "y": 776,
+       "bits": 5
+      }
+     ]
+    }
+   },
+   {
+    "id": "and",
+    "type": "and",
+    "x": 1530,
+    "y": -60
+   },
+   {
+    "id": "dm",
+    "type": "dmem",
+    "x": 1560,
+    "y": 511
+   },
+   {
+    "id": "memwb",
+    "type": "preg",
+    "x": 1740,
+    "y": 0,
+    "params": {
+     "label": "MEM/WB",
+     "h": 820,
+     "fields": [
+      {
+       "id": "MemtoReg",
+       "y": 59,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "RegWrite",
+       "y": 154,
+       "bits": 1,
+       "ctrl": true
+      },
+      {
+       "id": "rdata",
+       "y": 529,
+       "label": "RD"
+      },
+      {
+       "id": "alu",
+       "y": 680,
+       "label": "ALU"
+      },
+      {
+       "id": "rd",
+       "y": 776,
+       "bits": 5
+      }
+     ]
+    }
+   },
+   {
+    "id": "muxWb",
+    "type": "mux",
+    "x": 1820,
+    "y": 513,
+    "params": {
+     "swap": true
+    }
+   }
+  ],
+  "wires": [
+   {
+    "id": "w_muxPc_out_pc_in",
+    "from": {
+     "node": "muxPc",
+     "port": "out"
+    },
+    "to": {
+     "node": "pc",
+     "port": "in"
+    },
+    "points": []
+   },
+   {
+    "id": "w_pc_out_imem_addr",
+    "from": {
+     "node": "pc",
+     "port": "out"
+    },
+    "to": {
+     "node": "imem",
+     "port": "addr"
+    },
+    "points": []
+   },
+   {
+    "id": "w_pc_out_add4_a",
+    "from": {
+     "node": "pc",
+     "port": "out"
+    },
+    "to": {
+     "node": "add4",
+     "port": "a"
+    },
+    "points": [
+     {
+      "x": 150,
+      "y": 200
+     }
+    ]
+   },
+   {
+    "id": "w_c4_out_add4_b",
+    "from": {
+     "node": "c4",
+     "port": "out"
+    },
+    "to": {
+     "node": "add4",
+     "port": "b"
+    },
+    "points": []
+   },
+   {
+    "id": "w_add4_out_ifid_i_pc4",
+    "from": {
+     "node": "add4",
+     "port": "out"
+    },
+    "to": {
+     "node": "ifid",
+     "port": "i_pc4"
+    },
+    "points": []
+   },
+   {
+    "id": "w_add4_out_muxPc_in0",
+    "from": {
+     "node": "add4",
+     "port": "out"
+    },
+    "to": {
+     "node": "muxPc",
+     "port": "in0"
+    },
+    "points": [
+     {
+      "x": 290,
+      "y": 160
+     },
+     {
+      "x": 6,
+      "y": 160
+     },
+     {
+      "x": 6,
+      "y": 400
+     }
+    ]
+   },
+   {
+    "id": "w_imem_instr_ifid_i_instr",
+    "from": {
+     "node": "imem",
+     "port": "instr"
+    },
+    "to": {
+     "node": "ifid",
+     "port": "i_instr"
+    },
+    "points": []
+   },
+   {
+    "id": "w_hazard_pcWrite_pc_write",
+    "from": {
+     "node": "hazard",
+     "port": "pcWrite"
+    },
+    "to": {
+     "node": "pc",
+     "port": "write"
+    },
+    "points": [
+     {
+      "x": 109,
+      "y": -166
+     }
+    ]
+   },
+   {
+    "id": "w_hazard_ifidWrite_ifid_write",
+    "from": {
+     "node": "hazard",
+     "port": "ifidWrite"
+    },
+    "to": {
+     "node": "ifid",
+     "port": "write"
+    },
+    "points": [
+     {
+      "x": 327,
+      "y": -142
+     }
+    ]
+   },
+   {
+    "id": "w_ifid_instr_split_in",
+    "from": {
+     "node": "ifid",
+     "port": "instr"
+    },
+    "to": {
+     "node": "split",
+     "port": "in"
+    },
+    "points": []
+   },
+   {
+    "id": "w_split_op_ctrl_op",
+    "from": {
+     "node": "split",
+     "port": "op"
+    },
+    "to": {
+     "node": "ctrl",
+     "port": "op"
+    },
+    "points": [
+     {
+      "x": 420,
+      "y": 105
+     }
+    ]
+   },
+   {
+    "id": "w_split_rs_rf_rr1",
+    "from": {
+     "node": "split",
+     "port": "rs"
+    },
+    "to": {
+     "node": "rf",
+     "port": "rr1"
+    },
+    "points": []
+   },
+   {
+    "id": "w_split_rt_rf_rr2",
+    "from": {
+     "node": "split",
+     "port": "rt"
+    },
+    "to": {
+     "node": "rf",
+     "port": "rr2"
+    },
+    "points": []
+   },
+   {
+    "id": "w_split_imm_se_in",
+    "from": {
+     "node": "split",
+     "port": "imm"
+    },
+    "to": {
+     "node": "se",
+     "port": "in"
+    },
+    "points": []
+   },
+   {
+    "id": "w_split_rs_hazard_rs",
+    "from": {
+     "node": "split",
+     "port": "rs"
+    },
+    "to": {
+     "node": "hazard",
+     "port": "rs"
+    },
+    "points": []
+   },
+   {
+    "id": "w_split_rt_hazard_rt",
+    "from": {
+     "node": "split",
+     "port": "rt"
+    },
+    "to": {
+     "node": "hazard",
+     "port": "rt"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ctrl_Branch_idex_i_Branch",
+    "from": {
+     "node": "ctrl",
+     "port": "Branch"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_Branch"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ctrl_MemtoReg_idex_i_MemtoReg",
+    "from": {
+     "node": "ctrl",
+     "port": "MemtoReg"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_MemtoReg"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ctrl_MemWrite_idex_i_MemWrite",
+    "from": {
+     "node": "ctrl",
+     "port": "MemWrite"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_MemWrite"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ctrl_MemRead_idex_i_MemRead",
+    "from": {
+     "node": "ctrl",
+     "port": "MemRead"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_MemRead"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ctrl_ALUSrc_idex_i_ALUSrc",
+    "from": {
+     "node": "ctrl",
+     "port": "ALUSrc"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_ALUSrc"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ctrl_ALUOp_idex_i_ALUOp",
+    "from": {
+     "node": "ctrl",
+     "port": "ALUOp"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_ALUOp"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ctrl_RegWrite_idex_i_RegWrite",
+    "from": {
+     "node": "ctrl",
+     "port": "RegWrite"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_RegWrite"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ctrl_RegDst_idex_i_RegDst",
+    "from": {
+     "node": "ctrl",
+     "port": "RegDst"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_RegDst"
+    },
+    "points": []
+   },
+   {
+    "id": "w_ifid_pc4_idex_i_pc4",
+    "from": {
+     "node": "ifid",
+     "port": "pc4"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_pc4"
+    },
+    "points": []
+   },
+   {
+    "id": "w_rf_rd1_idex_i_rd1",
+    "from": {
+     "node": "rf",
+     "port": "rd1"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_rd1"
+    },
+    "points": []
+   },
+   {
+    "id": "w_rf_rd2_idex_i_rd2",
+    "from": {
+     "node": "rf",
+     "port": "rd2"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_rd2"
+    },
+    "points": [
+     {
+      "x": 735,
+      "y": 530
+     }
+    ]
+   },
+   {
+    "id": "w_se_out_idex_i_imm",
+    "from": {
+     "node": "se",
+     "port": "out"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_imm"
+    },
+    "points": [
+     {
+      "x": 748,
+      "y": 640
+     }
+    ]
+   },
+   {
+    "id": "w_split_funct_idex_i_funct",
+    "from": {
+     "node": "split",
+     "port": "funct"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_funct"
+    },
+    "points": [
+     {
+      "x": 760,
+      "y": 680
+     }
+    ]
+   },
+   {
+    "id": "w_split_rs_idex_i_rs",
+    "from": {
+     "node": "split",
+     "port": "rs"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_rs"
+    },
+    "points": [
+     {
+      "x": 430,
+      "y": 730
+     }
+    ]
+   },
+   {
+    "id": "w_split_rt_idex_i_rt",
+    "from": {
+     "node": "split",
+     "port": "rt"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_rt"
+    },
+    "points": [
+     {
+      "x": 442,
+      "y": 760
+     }
+    ]
+   },
+   {
+    "id": "w_split_rd_idex_i_rd",
+    "from": {
+     "node": "split",
+     "port": "rd"
+    },
+    "to": {
+     "node": "idex",
+     "port": "i_rd"
+    },
+    "points": [
+     {
+      "x": 454,
+      "y": 792
+     }
+    ]
+   },
+   {
+    "id": "w_hazard_bubble_idex_flush",
+    "from": {
+     "node": "hazard",
+     "port": "bubble"
+    },
+    "to": {
+     "node": "idex",
+     "port": "flush"
+    },
+    "points": [
+     {
+      "x": 465,
+      "y": -200
+     },
+     {
+      "x": 793,
+      "y": -200
+     }
+    ]
+   },
+   {
+    "id": "w_idex_MemRead_hazard_memRead",
+    "from": {
+     "node": "idex",
+     "port": "MemRead"
+    },
+    "to": {
+     "node": "hazard",
+     "port": "memRead"
+    },
+    "points": [
+     {
+      "x": 826,
+      "y": -160
+     }
+    ]
+   },
+   {
+    "id": "w_idex_rt_hazard_exRt",
+    "from": {
+     "node": "idex",
+     "port": "rt"
+    },
+    "to": {
+     "node": "hazard",
+     "port": "exRt"
+    },
+    "points": [
+     {
+      "x": 838,
+      "y": -126
+     }
+    ]
+   },
+   {
+    "id": "w_idex_Branch_exmem_i_Branch",
+    "from": {
+     "node": "idex",
+     "port": "Branch"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_Branch"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_MemtoReg_exmem_i_MemtoReg",
+    "from": {
+     "node": "idex",
+     "port": "MemtoReg"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_MemtoReg"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_MemWrite_exmem_i_MemWrite",
+    "from": {
+     "node": "idex",
+     "port": "MemWrite"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_MemWrite"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_MemRead_exmem_i_MemRead",
+    "from": {
+     "node": "idex",
+     "port": "MemRead"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_MemRead"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_RegWrite_exmem_i_RegWrite",
+    "from": {
+     "node": "idex",
+     "port": "RegWrite"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_RegWrite"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_pc4_addBr_a",
+    "from": {
+     "node": "idex",
+     "port": "pc4"
+    },
+    "to": {
+     "node": "addBr",
+     "port": "a"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_imm_sl2_in",
+    "from": {
+     "node": "idex",
+     "port": "imm"
+    },
+    "to": {
+     "node": "sl2",
+     "port": "in"
+    },
+    "points": [
+     {
+      "x": 850,
+      "y": 290
+     }
+    ]
+   },
+   {
+    "id": "w_sl2_out_addBr_b",
+    "from": {
+     "node": "sl2",
+     "port": "out"
+    },
+    "to": {
+     "node": "addBr",
+     "port": "b"
+    },
+    "points": []
+   },
+   {
+    "id": "w_addBr_out_exmem_i_target",
+    "from": {
+     "node": "addBr",
+     "port": "out"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_target"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_rd1_fwdA_in00",
+    "from": {
+     "node": "idex",
+     "port": "rd1"
+    },
+    "to": {
+     "node": "fwdA",
+     "port": "in00"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_rd2_fwdB_in00",
+    "from": {
+     "node": "idex",
+     "port": "rd2"
+    },
+    "to": {
+     "node": "fwdB",
+     "port": "in00"
+    },
+    "points": []
+   },
+   {
+    "id": "w_exmem_alu_fwdA_in10",
+    "from": {
+     "node": "exmem",
+     "port": "alu"
+    },
+    "to": {
+     "node": "fwdA",
+     "port": "in10"
+    },
+    "points": [
+     {
+      "x": 1482,
+      "y": 840
+     },
+     {
+      "x": 1010,
+      "y": 840
+     },
+     {
+      "x": 1010,
+      "y": 429
+     }
+    ]
+   },
+   {
+    "id": "w_exmem_alu_fwdB_in10",
+    "from": {
+     "node": "exmem",
+     "port": "alu"
+    },
+    "to": {
+     "node": "fwdB",
+     "port": "in10"
+    },
+    "points": [
+     {
+      "x": 1482,
+      "y": 840
+     },
+     {
+      "x": 910,
+      "y": 840
+     },
+     {
+      "x": 910,
+      "y": 562
+     }
+    ]
+   },
+   {
+    "id": "w_fwdA_out_alu_a",
+    "from": {
+     "node": "fwdA",
+     "port": "out"
+    },
+    "to": {
+     "node": "alu",
+     "port": "a"
+    },
+    "points": [
+     {
+      "x": 1160,
+      "y": 476
+     }
+    ]
+   },
+   {
+    "id": "w_fwdB_out_muxAlu_in0",
+    "from": {
+     "node": "fwdB",
+     "port": "out"
+    },
+    "to": {
+     "node": "muxAlu",
+     "port": "in0"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_imm_muxAlu_in1",
+    "from": {
+     "node": "idex",
+     "port": "imm"
+    },
+    "to": {
+     "node": "muxAlu",
+     "port": "in1"
+    },
+    "points": [
+     {
+      "x": 1090,
+      "y": 594
+     }
+    ]
+   },
+   {
+    "id": "w_idex_ALUSrc_muxAlu_sel",
+    "from": {
+     "node": "idex",
+     "port": "ALUSrc"
+    },
+    "to": {
+     "node": "muxAlu",
+     "port": "sel"
+    },
+    "points": []
+   },
+   {
+    "id": "w_muxAlu_out_alu_b",
+    "from": {
+     "node": "muxAlu",
+     "port": "out"
+    },
+    "to": {
+     "node": "alu",
+     "port": "b"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_ALUOp_aluCtrl_aluOp",
+    "from": {
+     "node": "idex",
+     "port": "ALUOp"
+    },
+    "to": {
+     "node": "aluCtrl",
+     "port": "aluOp"
+    },
+    "points": [
+     {
+      "x": 1036,
+      "y": 690
+     }
+    ]
+   },
+   {
+    "id": "w_idex_funct_aluCtrl_funct",
+    "from": {
+     "node": "idex",
+     "port": "funct"
+    },
+    "to": {
+     "node": "aluCtrl",
+     "port": "funct"
+    },
+    "points": [
+     {
+      "x": 886,
+      "y": 740
+     }
+    ]
+   },
+   {
+    "id": "w_aluCtrl_out_alu_op",
+    "from": {
+     "node": "aluCtrl",
+     "port": "out"
+    },
+    "to": {
+     "node": "alu",
+     "port": "op"
+    },
+    "points": []
+   },
+   {
+    "id": "w_alu_zero_exmem_i_zero",
+    "from": {
+     "node": "alu",
+     "port": "zero"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_zero"
+    },
+    "points": []
+   },
+   {
+    "id": "w_alu_result_exmem_i_alu",
+    "from": {
+     "node": "alu",
+     "port": "result"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_alu"
+    },
+    "points": []
+   },
+   {
+    "id": "w_fwdB_out_exmem_i_wdata",
+    "from": {
+     "node": "fwdB",
+     "port": "out"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_wdata"
+    },
+    "points": [
+     {
+      "x": 992,
+      "y": 650
+     }
+    ]
+   },
+   {
+    "id": "w_idex_rt_muxDst_in0",
+    "from": {
+     "node": "idex",
+     "port": "rt"
+    },
+    "to": {
+     "node": "muxDst",
+     "port": "in0"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_rd_muxDst_in1",
+    "from": {
+     "node": "idex",
+     "port": "rd"
+    },
+    "to": {
+     "node": "muxDst",
+     "port": "in1"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_RegDst_muxDst_sel",
+    "from": {
+     "node": "idex",
+     "port": "RegDst"
+    },
+    "to": {
+     "node": "muxDst",
+     "port": "sel"
+    },
+    "points": []
+   },
+   {
+    "id": "w_muxDst_out_exmem_i_rd",
+    "from": {
+     "node": "muxDst",
+     "port": "out"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "i_rd"
+    },
+    "points": []
+   },
+   {
+    "id": "w_idex_rs_fwd_rs",
+    "from": {
+     "node": "idex",
+     "port": "rs"
+    },
+    "to": {
+     "node": "fwd",
+     "port": "rs"
+    },
+    "points": [
+     {
+      "x": 862,
+      "y": 918
+     }
+    ]
+   },
+   {
+    "id": "w_idex_rt_fwd_rt",
+    "from": {
+     "node": "idex",
+     "port": "rt"
+    },
+    "to": {
+     "node": "fwd",
+     "port": "rt"
+    },
+    "points": [
+     {
+      "x": 874,
+      "y": 950
+     }
+    ]
+   },
+   {
+    "id": "w_fwd_F1_fwdA_sel",
+    "from": {
+     "node": "fwd",
+     "port": "F1"
+    },
+    "to": {
+     "node": "fwdA",
+     "port": "sel"
+    },
+    "points": [
+     {
+      "x": 1073,
+      "y": 878
+     }
+    ]
+   },
+   {
+    "id": "w_fwd_F2_fwdB_sel",
+    "from": {
+     "node": "fwd",
+     "port": "F2"
+    },
+    "to": {
+     "node": "fwdB",
+     "port": "sel"
+    },
+    "points": []
+   },
+   {
+    "id": "w_exmem_RegWrite_fwd_exRegWrite",
+    "from": {
+     "node": "exmem",
+     "port": "RegWrite"
+    },
+    "to": {
+     "node": "fwd",
+     "port": "exRegWrite"
+    },
+    "points": [
+     {
+      "x": 1458,
+      "y": 914
+     }
+    ]
+   },
+   {
+    "id": "w_exmem_rd_fwd_exRd",
+    "from": {
+     "node": "exmem",
+     "port": "rd"
+    },
+    "to": {
+     "node": "fwd",
+     "port": "exRd"
+    },
+    "points": [
+     {
+      "x": 1470,
+      "y": 930
+     }
+    ]
+   },
+   {
+    "id": "w_memwb_RegWrite_fwd_wbRegWrite",
+    "from": {
+     "node": "memwb",
+     "port": "RegWrite"
+    },
+    "to": {
+     "node": "fwd",
+     "port": "wbRegWrite"
+    },
+    "points": [
+     {
+      "x": 1885,
+      "y": 946
+     }
+    ]
+   },
+   {
+    "id": "w_memwb_rd_fwd_wbRd",
+    "from": {
+     "node": "memwb",
+     "port": "rd"
+    },
+    "to": {
+     "node": "fwd",
+     "port": "wbRd"
+    },
+    "points": [
+     {
+      "x": 1900,
+      "y": 962
+     }
+    ]
+   },
+   {
+    "id": "w_exmem_MemtoReg_memwb_i_MemtoReg",
+    "from": {
+     "node": "exmem",
+     "port": "MemtoReg"
+    },
+    "to": {
+     "node": "memwb",
+     "port": "i_MemtoReg"
+    },
+    "points": []
+   },
+   {
+    "id": "w_exmem_RegWrite_memwb_i_RegWrite",
+    "from": {
+     "node": "exmem",
+     "port": "RegWrite"
+    },
+    "to": {
+     "node": "memwb",
+     "port": "i_RegWrite"
+    },
+    "points": []
+   },
+   {
+    "id": "w_exmem_Branch_and_a",
+    "from": {
+     "node": "exmem",
+     "port": "Branch"
+    },
+    "to": {
+     "node": "and",
+     "port": "a"
+    },
+    "points": [
+     {
+      "x": 1494,
+      "y": -48
+     }
+    ]
+   },
+   {
+    "id": "w_exmem_zero_and_b",
+    "from": {
+     "node": "exmem",
+     "port": "zero"
+    },
+    "to": {
+     "node": "and",
+     "port": "b"
+    },
+    "points": [
+     {
+      "x": 1506,
+      "y": -26
+     }
+    ]
+   },
+   {
+    "id": "w_exmem_alu_dm_addr",
+    "from": {
+     "node": "exmem",
+     "port": "alu"
+    },
+    "to": {
+     "node": "dm",
+     "port": "addr"
+    },
+    "points": []
+   },
+   {
+    "id": "w_exmem_wdata_dm_wd",
+    "from": {
+     "node": "exmem",
+     "port": "wdata"
+    },
+    "to": {
+     "node": "dm",
+     "port": "wd"
+    },
+    "points": [
+     {
+      "x": 1520,
+      "y": 578
+     }
+    ]
+   },
+   {
+    "id": "w_exmem_MemWrite_dm_memWrite",
+    "from": {
+     "node": "exmem",
+     "port": "MemWrite"
+    },
+    "to": {
+     "node": "dm",
+     "port": "memWrite"
+    },
+    "points": []
+   },
+   {
+    "id": "w_exmem_MemRead_dm_memRead",
+    "from": {
+     "node": "exmem",
+     "port": "MemRead"
+    },
+    "to": {
+     "node": "dm",
+     "port": "memRead"
+    },
+    "points": [
+     {
+      "x": 1690,
+      "y": 640
+     },
+     {
+      "x": 1612,
+      "y": 640
+     }
+    ]
+   },
+   {
+    "id": "w_dm_rd_memwb_i_rdata",
+    "from": {
+     "node": "dm",
+     "port": "rd"
+    },
+    "to": {
+     "node": "memwb",
+     "port": "i_rdata"
+    },
+    "points": []
+   },
+   {
+    "id": "w_exmem_alu_memwb_i_alu",
+    "from": {
+     "node": "exmem",
+     "port": "alu"
+    },
+    "to": {
+     "node": "memwb",
+     "port": "i_alu"
+    },
+    "points": [
+     {
+      "x": 1482,
+      "y": 680
+     }
+    ]
+   },
+   {
+    "id": "w_exmem_rd_memwb_i_rd",
+    "from": {
+     "node": "exmem",
+     "port": "rd"
+    },
+    "to": {
+     "node": "memwb",
+     "port": "i_rd"
+    },
+    "points": []
+   },
+   {
+    "id": "w_exmem_target_muxPc_in1",
+    "from": {
+     "node": "exmem",
+     "port": "target"
+    },
+    "to": {
+     "node": "muxPc",
+     "port": "in1"
+    },
+    "points": [
+     {
+      "x": 1446,
+      "y": -230
+     },
+     {
+      "x": -10,
+      "y": -230
+     },
+     {
+      "x": -10,
+      "y": 432
+     }
+    ]
+   },
+   {
+    "id": "w_and_out_muxPc_sel",
+    "from": {
+     "node": "and",
+     "port": "out"
+    },
+    "to": {
+     "node": "muxPc",
+     "port": "sel"
+    },
+    "points": [
+     {
+      "x": 1586,
+      "y": -250
+     },
+     {
+      "x": 43,
+      "y": -250
+     }
+    ]
+   },
+   {
+    "id": "w_and_out_hazard_pcsrc",
+    "from": {
+     "node": "and",
+     "port": "out"
+    },
+    "to": {
+     "node": "hazard",
+     "port": "pcsrc"
+    },
+    "points": [
+     {
+      "x": 1586,
+      "y": -250
+     },
+     {
+      "x": 527,
+      "y": -250
+     }
+    ]
+   },
+   {
+    "id": "w_and_out_ifid_flush",
+    "from": {
+     "node": "and",
+     "port": "out"
+    },
+    "to": {
+     "node": "ifid",
+     "port": "flush"
+    },
+    "points": [
+     {
+      "x": 1586,
+      "y": -250
+     },
+     {
+      "x": 339,
+      "y": -250
+     }
+    ]
+   },
+   {
+    "id": "w_and_out_exmem_flush",
+    "from": {
+     "node": "and",
+     "port": "out"
+    },
+    "to": {
+     "node": "exmem",
+     "port": "flush"
+    },
+    "points": [
+     {
+      "x": 1586,
+      "y": -250
+     },
+     {
+      "x": 1413,
+      "y": -250
+     }
+    ]
+   },
+   {
+    "id": "w_memwb_rdata_muxWb_in1",
+    "from": {
+     "node": "memwb",
+     "port": "rdata"
+    },
+    "to": {
+     "node": "muxWb",
+     "port": "in1"
+    },
+    "points": []
+   },
+   {
+    "id": "w_memwb_alu_muxWb_in0",
+    "from": {
+     "node": "memwb",
+     "port": "alu"
+    },
+    "to": {
+     "node": "muxWb",
+     "port": "in0"
+    },
+    "points": [
+     {
+      "x": 1795,
+      "y": 561
+     }
+    ]
+   },
+   {
+    "id": "w_memwb_MemtoReg_muxWb_sel",
+    "from": {
+     "node": "memwb",
+     "port": "MemtoReg"
+    },
+    "to": {
+     "node": "muxWb",
+     "port": "sel"
+    },
+    "points": []
+   },
+   {
+    "id": "w_muxWb_out_rf_wd",
+    "from": {
+     "node": "muxWb",
+     "port": "out"
+    },
+    "to": {
+     "node": "rf",
+     "port": "wd"
+    },
+    "points": [
+     {
+      "x": 1870,
+      "y": 855
+     },
+     {
+      "x": 490,
+      "y": 855
+     },
+     {
+      "x": 490,
+      "y": 505
+     }
+    ]
+   },
+   {
+    "id": "w_muxWb_out_fwdA_in01",
+    "from": {
+     "node": "muxWb",
+     "port": "out"
+    },
+    "to": {
+     "node": "fwdA",
+     "port": "in01"
+    },
+    "points": [
+     {
+      "x": 1870,
+      "y": 855
+     },
+     {
+      "x": 1022,
+      "y": 855
+     },
+     {
+      "x": 1022,
+      "y": 461
+     }
+    ]
+   },
+   {
+    "id": "w_muxWb_out_fwdB_in01",
+    "from": {
+     "node": "muxWb",
+     "port": "out"
+    },
+    "to": {
+     "node": "fwdB",
+     "port": "in01"
+    },
+    "points": [
+     {
+      "x": 1870,
+      "y": 855
+     },
+     {
+      "x": 924,
+      "y": 855
+     },
+     {
+      "x": 924,
+      "y": 594
+     }
+    ]
+   },
+   {
+    "id": "w_memwb_rd_rf_wr",
+    "from": {
+     "node": "memwb",
+     "port": "rd"
+    },
+    "to": {
+     "node": "rf",
+     "port": "wr"
+    },
+    "points": [
+     {
+      "x": 1900,
+      "y": 990
+     },
+     {
+      "x": 518,
+      "y": 990
+     },
+     {
+      "x": 518,
+      "y": 469
+     }
+    ]
+   },
+   {
+    "id": "w_memwb_RegWrite_rf_regWrite",
+    "from": {
+     "node": "memwb",
+     "port": "RegWrite"
+    },
+    "to": {
+     "node": "rf",
+     "port": "regWrite"
+    },
+    "points": [
+     {
+      "x": 1885,
+      "y": 1005
+     },
+     {
+      "x": 720,
+      "y": 1005
+     },
+     {
+      "x": 720,
+      "y": 360
+     },
+     {
+      "x": 610,
+      "y": 360
+     }
+    ]
+   }
+  ]
+ }
+}
